@@ -1,0 +1,25 @@
+.left {
+  float: left;
+  width: 200px;
+  background: blue;
+}
+.right {
+  float: right;
+  width: 200px;
+  background: blue;
+}
+.middle {
+  margin-left: 200px;
+  margin-right: 200px;
+  background: red;
+}
+.openFileList span {
+  margin-right: 10px;
+  border-radius: 4px;
+  background-color: #282828;
+}
+
+.openFileList .opened{
+  background-color: #FFF;
+  color:red;
+}

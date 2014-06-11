@@ -1,0 +1,9 @@
+[
+	{
+		"name":"htmlformat",
+		"ext":"*.html",
+		"files":[],
+		"key":"CTRL+F",
+		"exec":"html"
+	}
+]

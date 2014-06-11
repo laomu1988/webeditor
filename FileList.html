@@ -1,0 +1,170 @@
+<!DOCTYPE html> 
+<html lang=zh-cn> 
+<head>
+	<meta charset="utf-8"> 
+  <title> Menu </title>
+  <link rel="stylesheet" type="text/css" href="lib/codemirror.css" />
+  <link rel="stylesheet" type="text/css" href="http://laomu1988.sinaapp.com/css/main.css" />
+  <link rel="stylesheet" type="text/css" href="css/jqueryFileTree.css" />
+  <script src="lib/jquery/jquery-2.1.0.min.js"></script>
+  <script src="lib/codemirror.js"></script>
+  <script src="lib/codemirror/xml.js"></script>
+  <script src="lib/codemirror/javascript.js"></script>
+  <script src="lib/codemirror/css.js"></script>
+  <script src="js/jqueryFileTree.js"></script>
+</head>
+<body>
+<div class="container">
+	<div class="context">
+        <input type="file" name="file_input[]" id="file_input" multiple="" webkitdirectory="">
+    <ul class="jqueryFileTree" style="">
+    <li class="directory expanded" style="position: static;">
+        <a href="#" rel="../../demo/connectors/">
+            connectors
+        </a>
+        <ul class="jqueryFileTree" style="display: block;">
+            <li class="file ext_asp">
+                <a href="#" rel="../../demo/connectors/jqueryFileTree.asp">
+                    jqueryFileTree.asp
+                </a>
+            </li>
+            <li class="file ext_aspx">
+                <a href="#" rel="../../demo/connectors/jqueryFileTree.aspx">
+                    jqueryFileTree.aspx
+                </a>
+            </li>
+            <li class="file ext_cf">
+                <a href="#" rel="../../demo/connectors/jqueryFileTree.cf">
+                    jqueryFileTree.cf
+                </a>
+            </li>
+            <li class="file ext_jsp">
+                <a href="#" rel="../../demo/connectors/jqueryFileTree.jsp">
+                    jqueryFileTree.jsp
+                </a>
+            </li>
+            <li class="file ext_php">
+                <a href="#" rel="../../demo/connectors/jqueryFileTree.php">
+                    jqueryFileTree.php
+                </a>
+            </li>
+            <li class="file ext_pl">
+                <a href="#" rel="../../demo/connectors/jqueryFileTree.pl">
+                    jqueryFileTree.pl
+                </a>
+            </li>
+            <li class="file ext_py">
+                <a href="#" rel="../../demo/connectors/jqueryFileTree.py">
+                    jqueryFileTree.py
+                </a>
+            </li>
+            <li class="file ext_rb">
+                <a href="#" rel="../../demo/connectors/jqueryFileTree.rb">
+                    jqueryFileTree.rb
+                </a>
+            </li>
+            <li class="file ext_lasso">
+                <a href="#" rel="../../demo/connectors/jqueryFileTree_huck.lasso">
+                    jqueryFileTree_huck.lasso
+                </a>
+            </li>
+            <li class="file ext_lasso">
+                <a href="#" rel="../../demo/connectors/jqueryFileTree_sabourdin.lasso">
+                    jqueryFileTree_sabourdin.lasso
+                </a>
+            </li>
+        </ul>
+    </li>
+    <li class="directory collapsed">
+        <a href="#" rel="../../demo/demo/">
+            demo
+        </a>
+    </li>
+    <li class="directory collapsed">
+        <a href="#" rel="../../demo/images/">
+            images
+        </a>
+    </li>
+    <li class="file ext_html">
+        <a href="#" rel="../../demo/index.html">
+            index.html
+        </a>
+    </li>
+    <li class="file ext_js">
+        <a href="#" rel="../../demo/jquery.easing.js">
+            jquery.easing.js
+        </a>
+    </li>
+    <li class="file ext_js">
+        <a href="#" rel="../../demo/jquery.js">
+            jquery.js
+        </a>
+    </li>
+    <li class="file ext_css">
+        <a href="#" rel="../../demo/jqueryFileTree.css">
+            jqueryFileTree.css
+        </a>
+    </li>
+    <li class="file ext_js">
+        <a href="#" rel="../../demo/jqueryFileTree.js">
+            jqueryFileTree.js
+        </a>
+    </li>
+</ul>
+		<div class="w2" id="FileList">
+      <ul class="jqueryFileTree">
+         <li class="directory expanded" style="position: static;">
+          <a href="">Test2</a>
+          <ul class="">
+            <li class="file"><a href="">Test3</a></li>
+          </ul>
+        </li>
+        <li class="file">
+          <a href="test.asp">Test</a>
+        <li>
+      </ul>
+		</div>
+    <div id="fileTreeDemo_1" class="jqueryFileTree">
+    </div>
+	</div>
+</div>
+
+<script>
+$('#fileTreeDemo_1').fileTree({ root: 'I:/', script: getChild }, function(file) { 
+    alert(file);
+});
+
+function getChild(path,callback){
+    var fs = require("fs");
+    var files = [];
+    var a = fs.readdirSync(path);
+    console.log(a);
+    for (var i = 0; i < a.length; i++) {
+        var p = (path.charAt(path.length-1)=="/"?path:path+"/") + a[i];
+        try{
+          var stat = fs.statSync(p);
+          //console.log(p);
+          //console.log(stat);
+          files.push({"path":p,"file":a[i],"isDic":stat.isDirectory(),"isFile":stat.isFile()})
+        }catch(err){
+          console.log(err);
+        }
+    }
+    files = files.sort(function(a,b){
+      return a.isFile?1:-1;
+    })
+    var outStr = "<ul class=\"jqueryFileTree\" style=\"display: none;\">";
+    for(var i = 0;i<files.length;i++){
+        if(files[i].isDic){
+            outStr += "<ul class='jqueryFileTree'><li class='directory'><a rel='"+files[i].path+"'>"+files[i].file+"</a></li></ul>";
+        }else{
+            outStr += "<li class='file ext_"+files[i].file.substring(files[i].file.lastIndexOf(".")+1)+"'><a rel='"+files[i].path+"'>"+files[i].file+"</a></li>";
+        }
+    }
+    outStr+="</ul>";
+    callback(outStr);
+    return outStr;
+};
+</script>
+</body>
+</html>

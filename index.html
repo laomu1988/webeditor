@@ -1,0 +1,52 @@
+<!DOCTYPE html> 
+<html lang=zh-cn> 
+<head> 
+	<meta charset="utf-8"> 
+  <title>WebEditor</title>
+  <link rel="stylesheet" type="text/css" href="lib/codemirror.css" />
+  <link rel="stylesheet" type="text/css" href="css/main.css" />
+  <link rel="stylesheet" type="text/css" href="css/editor.css" />
+  <link rel="stylesheet" type="text/css" href="css/jqueryFileTree.css" />
+  <script src="lib/jquery/jquery-2.1.0.min.js"></script>
+  <script src="js/jqueryFileTree.js"></script>
+  <script src="lib/codemirror.js"></script>
+  <script src="lib/codemirror/xml.js"></script>
+  <script src="lib/codemirror/javascript.js"></script>
+  <script src="lib/codemirror/css.js"></script>
+  <script src="js/webeditor.js"></script>
+  <script src="js/tools.js"></script>
+</head>
+<body>
+<div>
+  菜单栏位置：
+<label for="fileField">打开文件</label>
+<input type="file" name="filename" id="filename">
+</div>
+<!--左侧文件选择区域-->
+<div class="left">
+  <p><input type="file" name="selectFolder" id="selectFolder" multiple="" webkitdirectory=""></p>
+  <div id="myfileTree" class="jqueryFileTree">
+  </div>
+</div>
+<!--右侧工具栏区域-->
+<div class="right">
+  <p>工具栏位置</p>
+    <p>
+      <input type="button" name="button" id="savefile" value="保存" />
+      <input type="button" name="button" id="closefile" value="关闭" />
+    </p>
+    <div class="tools">
+    </div>
+</div>
+<!--中间编辑区域-->
+<div class="middle">
+  <!--打开文件列表-->
+  <div class="openFileList">
+  </div>
+	<div class="editorArea">
+  	<textarea id="code"></textarea>
+  <div>
+</div>
+<script type="text/javascript" src="js/view.js"></script>
+</body>
+</html>
